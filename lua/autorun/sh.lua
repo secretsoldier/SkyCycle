@@ -37,4 +37,5 @@ if SERVER then
 	function StartCycle()
 		Day()
 	end
+	StartCycle()
 end
