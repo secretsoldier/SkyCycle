@@ -1,6 +1,6 @@
 -- Shared
 local function ulxCommand(name,func) return ulx.command("Sky Cycle",string.format("ulx %s",name),function() SinglePlayerError() func() end,string.format("!%s",name),false,false,false) end
-local function ulxLog(string,ply) ulx.fancyLogAdmin(ply,string.format("#A %s",string)) end -- I don't like ulx's fancyLogAdmin function
+local function ulxLog(string,ply,arg1,arg2,arg3) ulx.fancyLogAdmin(ply,string.format("#A %s",string.format(string,arg1,arg2,arg3))) end
 local function ulxError(string,ply) ULib.tsayError(ply,string,false) end
 local function SinglePlayerError() if game.SinglePlayer() then Ulib.console(nil,"!Most features of SkyCycle do not work in SinglePlayer!") end
 local USER,OPERATOR,ADMIN,SUPERADMIN = "user","operator","admin","superadmin" -- They must of never heard of enums...
@@ -19,7 +19,7 @@ local disable_cycle = ulxCommand("Disable Cycle",function(ply) EnableCycleTimer(
 disable_cycle:help"Disables the Sky Cycle timer freezing the sun in place."
 disable_cycle:defaultAccess(SUPERADMIN)
 
-local cycle_length = ulxCommand("Set Cycle Length",function(ply,seconds) SetCycleLength(seconds) ulxLog("Set the Cycle Length",ply) end) -- Will be removed in a later date.
+local cycle_length = ulxCommand("Set Cycle Length",function(ply,seconds) SetCycleLength(seconds) ulxLog("Set the Cycle Length to %s seconds.",ply,seconds) end) -- Will be removed in a later date.
 cycle_length:help"Sets the amount of time it takes for a whole cycle to pass in seconds."
 cycle_length:addParam{type=ULib.cmds.NumArg,default=600,min=60,hint="seconds",ULib.cmds.round}
 cycle_length:defaultAccess(SUPERADMIN)
