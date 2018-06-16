@@ -15,6 +15,11 @@ local force_cycle = ulxCommand("Force Cycle",function(ply) RunCycle() ulxLog("Fo
 force_cycle:help"Forces a day cycle."
 force_cycle:defaultAccess(ADMIN)
 
-local disable_cycle = ulxCommand("Disable Cycle",function(ply) EnableCycleTimer(false) ulxLog("Disabled the Sky Cycle",ply) end )
+local disable_cycle = ulxCommand("Disable Cycle",function(ply) EnableCycleTimer(false) ulxLog("Disabled the Sky Cycle",ply) end)
 disable_cycle:help"Disables the Sky Cycle timer freezing the sun in place."
 disable_cycle:defaultAccess(SUPERADMIN)
+
+local cycle_length = ulxCommand("Set Cycle Length",function(ply,seconds) SetCycleLength(seconds) ulxLog("Set the Cycle Length",ply) end) -- Will be removed in a later date.
+cycle_length:help"Sets the amount of time it takes for a whole cycle to pass in seconds."
+cycle_length:addParam{type=ULib.cmds.NumArg,default=600,min=60,hint="seconds",ULib.cmds.round}
+cycle_length:defaultAccess(SUPERADMIN)
