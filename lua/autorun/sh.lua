@@ -57,6 +57,11 @@ if SERVER then
 		function SetCycleLength(secs) seconds = secs end
 		function ReturnSunEntity() return sun end
 
+		local sky = ents.FindByClass("env_skypaint")[1]
+		function RGB_to_SkyEntityRGB(r,g,b)
+			return string.format("%s %s %s",r/255,g/255,b/255)
+		end
+
 		if ulx then include("modules/ulx.lua") else
 		concommand.Add("SingleCycle",function() RunCycle() end)
 		concommand.Add("SetSunSize",function(ply,cmd,args,argStr) if!(args[1])then print("This command requires an Argument.")return else sun:SetKeyValue("size",args[1])end end)
