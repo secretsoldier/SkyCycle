@@ -5,14 +5,15 @@ if SERVER then
 			if IgnoreSinglePlayer then
 				ErrorNoHalt("SkyCycle does not work correctly in SinglePlayer.")
 			else
-				Error("SkyCycle does not work correctly in SinglePlayer.")end
-
+				Error("SkyCycle does not work correctly in SinglePlayer.")
+			end
+		end
 		local sun,color = ents.FindByClass("env_sun")[1],"249 249 249"
 		if !(sun) then print("A sun isn't present in the map.") return end 
 		sun:SetKeyValue("size",30)
 		sun:SetKeyValue("overlaysize",30)
 		
---[[		function Cycle(enum,cycle_len)
+		--[[function Cycle(enum,cycle_len)
 			if enum == 1 then
 				sun:SetKeyValue("suncolor",moon_color)
 				sun:SetKeyValue("overlaycolor",moon_color)
@@ -60,12 +61,10 @@ if SERVER then
 		function RGB_to_SkyEntityRGB(r,g,b)
 			return string.format("%s %s %s",r/255,g/255,b/255)
 		end
+		if !(ulx) then
+			concommand.Add("SingleCycle",function() RunCycle() end)
+			concommand.Add("SetSunSize",function(ply,cmd,args,argStr) if!(args[1])then print("This command requires an Argument.")return else sun:SetKeyValue("size",args[1])end end)
+			concommand.Add("SetSunColor",function(ply,cmd,args,argStr) if!(args)then print("This command requires three Arguments.")return else sun:SetKeyValue("suncolor",string.format("%s %s %s",args[1],args[2],args[3]))end end)
+		end
 	end)
 end
-hook.Add("InitPostEntity","SkyCycleUserInit",function()
-	if ulx then include("modules/ulx.lua") else
-		concommand.Add("SingleCycle",function() RunCycle() end)
-		concommand.Add("SetSunSize",function(ply,cmd,args,argStr) if!(args[1])then print("This command requires an Argument.")return else sun:SetKeyValue("size",args[1])end end)
-		concommand.Add("SetSunColor",function(ply,cmd,args,argStr) if!(args)then print("This command requires three Arguments.")return else sun:SetKeyValue("suncolor",string.format("%s %s %s",args[1],args[2],args[3]))end end)
-	end
-end)
