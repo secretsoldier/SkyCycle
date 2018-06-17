@@ -42,10 +42,10 @@ if SERVER then
 			sun:SetKeyValue("HDRColorScale",hdr)
 		end
 		function RunCycle(offset)
-			enable = true
+			enable = true offset = offset or 0
 			local time,indent = math.floor(CurTime()),2/(seconds*2)
 			function TransFunc()
-				local trans = Lerp(indent*((CurTime()+offset)-time),-1,1)
+				local trans = Lerp(indent*((CurTime()+offset)-time),1,-1)
 				sun:SetKeyValue("sun_dir",string.format("%s 0 0",trans))
 				if CurTime()-time < seconds and enable then
 					timer.Simple(0.1,TransFunc)
@@ -58,9 +58,24 @@ if SERVER then
 		function ReturnSunEntity() return sun end
 
 		local sky = ents.FindByClass("env_skypaint")[1]
-		function RGB_to_SkyEntityRGB(r,g,b)
+		local function RGB_to_SkyEntityRGB(r,g,b)
 			return string.format("%s %s %s",r/255,g/255,b/255)
 		end
+		local function SetSkyTopColor(color_str)
+		end
+		local function SetSkyBottomColor(color_str)
+		end
+
+		--Top Color: 0 0 0
+		--Bottom Color: 0 0 0.04
+		-- Star Scale: 1.28
+
+		local light = ents.FindByClass("light_environment")[1]
+		local function SetEnviormentBrightness()
+		end
+
+		local shadow = ents.FindByClass("shadow_control")[1]
+			
 		if !(ulx) then
 			concommand.Add("SingleCycle",function() RunCycle() end)
 			concommand.Add("SetSunSize",function(ply,cmd,args,argStr) if!(args[1])then print("This command requires an Argument.")return else sun:SetKeyValue("size",args[1])end end)
