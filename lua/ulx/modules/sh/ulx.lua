@@ -10,8 +10,8 @@ local NUM,BOOL,PLAYER,PLAYERS,STRING = 1,2,3,4,5 -- Proper enums
 local function SinglePlayerError() if game.SinglePlayer() then ULib.console(nil,"!Most features of SkyCycle do not work in SinglePlayer!") end end
 local USER,OPERATOR,ADMIN,SUPERADMIN = "user","operator","admin","superadmin" -- They must of never heard of enums...
 
-local force_cycle = ulxCommand("forcecycle",function(ply) RunCycle() ulxLog("Forced a Day Cycle",ply) end)
-force_cycle:help"Forces a day cycle."
+local force_cycle = ulxCommand("forcecycle",function(ply) RunCycle() ulxLog("Forced a Cycle",ply) end)
+force_cycle:help"Forces a cycle."
 force_cycle:defaultAccess(ADMIN)
 force_cycle:addParam{type=ULib.cmds.BoolArg, invisible=true}
 
@@ -29,3 +29,10 @@ cycle_length:defaultAccess(SUPERADMIN)
 local cycle_length_param = ulxParam(BOOL)
 cycle_length_param.invisible = true
 cycle_length:addParam(cycle_length_param)
+
+local night_sky = ulxCommand("nightsky",function(ply) Night() ulxLog("Made it night.",ply) end)
+night_sky:help"Test command to make the sky night."
+night_sky:defaultAccess(ADMIN)
+local night_sky_param = ulxParam(BOOL)
+night_sky_param.invisible = true
+night_sky:addParam(night_sky_param)
