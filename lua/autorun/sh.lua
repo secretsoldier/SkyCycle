@@ -55,10 +55,14 @@ if SERVER then
 		sun:SetKeyValue("size",30)
 		sun:SetKeyValue("overlaysize",30)
 		local sun_color,moon_color = string.format("%s %s %s",241,240,199),string.format("%s %s %s",242,242,242)
-		function SetSunColor(color,hdr)
+		function SetSunColor(color)
 			sun:SetKeyValue("suncolor",color)
 			sun:SetKeyValue("overlaycolor",color)
-			sun:SetKeyValue("HDRColorScale",hdr)
+			--sun:SetKeyValue("HDRColorScale",hdr)
+		end
+		function SetSunSize(int)
+			sun:SetKeyValue("size",int)
+			sun:SetKeyValue("overlaysize",int)
 		end
 		function ReturnSunEntity() return sun end
 		hook.Add("SkyCycle_Timer","SkyCycle_SunDir",function(dir)
