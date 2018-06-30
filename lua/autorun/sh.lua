@@ -70,7 +70,13 @@ if SERVER then
 		end)
 
 		local sky = ents.FindByClass("env_skypaint")[1]
-		local starfield,clouds = "skybox/clouds","skybox/starfield"
+		if !sky then
+			sky = ents.Create("env_skypaint")
+			if !IsValid(sky) then print("env_skypaint failed to be created.") return end
+			sky:Spawn()
+			sky:Activate()
+		end
+		local starfield,clouds = "skybox/starfield","skybox/clouds"
 		sky:SetupDataTables()
 		sky:SetDrawStars(true)
 		if !(sky) then Error("env_skypaint isn't present in the map") end
