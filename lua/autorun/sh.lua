@@ -83,6 +83,7 @@ if SERVER then
 		function RGB_to_color_vec(r,g,b)
 			return Vector(r/255,g/255,b/255)
 		end
+		function ReturnSkyEntity() return sky end
 		--Top Color: 0 0 0
 		--Bottom Color: 0 0 0.04
 		-- Star Scale: 1.28

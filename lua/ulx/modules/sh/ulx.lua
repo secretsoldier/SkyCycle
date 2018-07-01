@@ -4,7 +4,7 @@ local function ulxLog(string,ply,arg1,arg2,arg3) ulx.fancyLogAdmin(ply,string.fo
 local function ulxError(string,ply) ULib.tsayError(ply,string,false) end
 local function ulxParam(enum,hint,optional,restrict,round,restofline) optional = optional or nil restrict = restrict or nil round = round or nil restofline = restofline or nil
 	local t = {{type=ULib.cmds.NumArg},{type=ULib.cmds.BoolArg},{type=ULib.cmds.PlayerArg},{type=ULib.cmds.PlayersArg},{type=ULib.cmds.StringArg}} t[enum].hint = hint 
-	if !(t[enum]) then return end if optional then table.Add(t[enum],{ULib.cmds.optional}) end if restrict then table.Add(t[enum],{ULib.cmds.restrictToCompletes}) end
+	if !t[enum] then return end if optional then table.Add(t[enum],{ULib.cmds.optional}) end if restrict then table.Add(t[enum],{ULib.cmds.restrictToCompletes}) end
 	if restofline then table.Add(t[enum],{ULib.cmds.takeRestOfLine}) end if round then table.Add(t[enum],{ULib.cmds.round}) end return t[enum] end
 local NUM,BOOL,PLAYER,PLAYERS,STRING = 1,2,3,4,5 -- Proper enums
 local ALL,OPERATOR,ADMIN,SUPERADMIN = "user","operator","admin","superadmin" -- They must of never heard of enums...
@@ -32,19 +32,23 @@ local cycle_length_param2 = ulxParam(BOOL)
 cycle_length_param2.invisible = true
 cycle_length:addParam(cycle_length_param2)
 
-local night_sky = ulxCommand("nightsky",function(ply) Night() ulxLog("Made it night.",ply) end)
-night_sky:help"Test command to make the sky night."
-night_sky:defaultAccess(ADMIN)
-local night_sky_param = ulxParam(BOOL)
-night_sky_param.invisible = true
-night_sky:addParam(night_sky_param)
+if ReturnSkyEntity() then
 
-local day_sky = ulxCommand("daysky",function(ply) Day() ulxLog("Made it day.",ply) end)
-day_sky:help"Test command to make the sky day."
-day_sky:defaultAccess(ADMIN)
-local day_sky_param = ulxParam(BOOL)
-day_sky_param.invisible = true
-day_sky:addParam(day_sky_param)
+	local night_sky = ulxCommand("nightsky",function(ply) Night() ulxLog("Made it night.",ply) end)
+	night_sky:help"Test command to make the sky night."
+	night_sky:defaultAccess(ADMIN)
+	local night_sky_param = ulxParam(BOOL)
+	night_sky_param.invisible = true
+	night_sky:addParam(night_sky_param)
+
+	local day_sky = ulxCommand("daysky",function(ply) Day() ulxLog("Made it day.",ply) end)
+	day_sky:help"Test command to make the sky day."
+	day_sky:defaultAccess(ADMIN)
+	local day_sky_param = ulxParam(BOOL)
+	day_sky_param.invisible = true
+	day_sky:addParam(day_sky_param)
+
+end
 
 --[[local get_time = ulxCommand("gettime",function(ply,format) local x,z = ReturnTime() if format == "24 Hour" then  else if !(z) then if x > 12 then x=x-12 end x = string.format("%s pm",x) else x = string.format("%s am",x) end end ULib.tsay(ply,string.format("The time is: %s",x)) end)
 get_time:help"Command that gets the time in-game."
