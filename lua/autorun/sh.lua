@@ -1,6 +1,8 @@
 if SERVER then
 	hook.Add("InitPostEntity","SkyCycleInit",function()
 
+		--Insert Update code here
+
 		local IgnoreSinglePlayer = true
 		if game.SinglePlayer() then
 			if IgnoreSinglePlayer then
@@ -36,7 +38,7 @@ if SERVER then
 		function ReturnTime() return time,day end
 		hook.Add("SkyCycle_Timer","SkyCycle_Time",function(per)
 			time = math.floor(12*Percent(per))+6
-			if !(day) then time = time + 12 end
+			if !day then time = time + 12 end
 			if time > 24 then time = time - 24 end
 
 
@@ -51,7 +53,7 @@ if SERVER then
 		function EnableCycleHopper(bool) cyclehopper_enable = bool end
 		
 		local sun,color = ents.FindByClass("env_sun")[1],"249 249 249"
-		if !(sun) then Error("env_sun isn't present in the map.") return end 
+		if !sun then Error("env_sun isn't present in the map.") return end 
 		sun:SetKeyValue("size",30)
 		sun:SetKeyValue("overlaysize",30)
 		local sun_color,moon_color = string.format("%s %s %s",241,240,199),string.format("%s %s %s",242,242,242)
@@ -98,7 +100,7 @@ if SERVER then
 			sky:SetBottomColor(Vector(0,0,0.04))
 			
 		end
-		if !(ulx) then
+		if !ulx then
 			concommand.Add("SingleCycle",function() RunCycle() end)
 			concommand.Add("SetSunSize",function(ply,cmd,args,argStr) if!(args[1])then print("This command requires an Argument.")return else sun:SetKeyValue("size",args[1])end end)
 			concommand.Add("SetSunColor",function(ply,cmd,args,argStr) if!(args)then print("This command requires three Arguments.")return else sun:SetKeyValue("suncolor",string.format("%s %s %s",args[1],args[2],args[3]))end end)
