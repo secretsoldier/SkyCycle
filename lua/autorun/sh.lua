@@ -5,9 +5,7 @@ if SERVER then
 			if "0.1.1" == body then else
 				ErrorNoHalt("SkyCycle is out of date.")
 				function TimerFunc()
-					for k,v in pairs(player.GetAll()) do
-						v:ChatPrint("SkyCycle is out of date, please download the latest version.")
-					end
+					print("SkyCycle is out of date, please download the latest version.")
 					timer.Simple(1800,TimerFunc)
 				end
 				timer.Simple(1800,TimerFunc)

@@ -32,23 +32,20 @@ local cycle_length_param2 = ulxParam(BOOL)
 cycle_length_param2.invisible = true
 cycle_length:addParam(cycle_length_param2)
 
-if ReturnSkyEntity() then
+local night_sky = ulxCommand("nightsky",function(ply) Night() ulxLog("Made it night.",ply) end)
+night_sky:help"Test command to make the sky night."
+night_sky:defaultAccess(ADMIN)
+local night_sky_param = ulxParam(BOOL)
+night_sky_param.invisible = true
+night_sky:addParam(night_sky_param)
 
-	local night_sky = ulxCommand("nightsky",function(ply) Night() ulxLog("Made it night.",ply) end)
-	night_sky:help"Test command to make the sky night."
-	night_sky:defaultAccess(ADMIN)
-	local night_sky_param = ulxParam(BOOL)
-	night_sky_param.invisible = true
-	night_sky:addParam(night_sky_param)
+local day_sky = ulxCommand("daysky",function(ply) Day() ulxLog("Made it day.",ply) end)
+day_sky:help"Test command to make the sky day."
+day_sky:defaultAccess(ADMIN)
+local day_sky_param = ulxParam(BOOL)
+day_sky_param.invisible = true
+day_sky:addParam(day_sky_param)
 
-	local day_sky = ulxCommand("daysky",function(ply) Day() ulxLog("Made it day.",ply) end)
-	day_sky:help"Test command to make the sky day."
-	day_sky:defaultAccess(ADMIN)
-	local day_sky_param = ulxParam(BOOL)
-	day_sky_param.invisible = true
-	day_sky:addParam(day_sky_param)
-
-end
 
 --[[local get_time = ulxCommand("gettime",function(ply,format) local x,z = ReturnTime() if format == "24 Hour" then  else if !(z) then if x > 12 then x=x-12 end x = string.format("%s pm",x) else x = string.format("%s am",x) end end ULib.tsay(ply,string.format("The time is: %s",x)) end)
 get_time:help"Command that gets the time in-game."
@@ -74,11 +71,11 @@ set_color_b.max	= 255
 local set_color_param = ulxParam(BOOL)
 set_color_param.invisible = true
 set_color:addParam(set_color_r)
-set_color.addParam(set_color_g)
+set_color:addParam(set_color_g)
 set_color:addParam(set_color_b)
 set_color:addParam(set_color_param)
 
-local set_size ulxCommand("setsize",function(ply,size) SetSunSize(size) ulxLog("Made the sun size %s",ply,size) end)
+local set_size = ulxCommand("setsize",function(ply,size) SetSunSize(size) ulxLog("Made the sun size %s",ply,size) end)
 set_size:help"To set the size of the sun."
 set_size:defaultAccess(SUPERADMIN)
 local set_size_size = ulxParam(NUM,"size",false,true)
