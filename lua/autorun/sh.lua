@@ -1,7 +1,18 @@
 if SERVER then
 	hook.Add("InitPostEntity","SkyCycleInit",function()
 
-		--Insert Update code here
+		http.Fetch([[https://raw.githubusercontent.com/secretsoldier/SkyCycle/master/version]],function(body)
+			if "0.1.1" == body then else
+				ErrorNoHalt("SkyCycle is out of date.")
+				function TimerFunc()
+					for k,v in pairs(player.GetAll()) do
+						v:ChatPrint("SkyCycle is out of date, please download the latest version.")
+					end
+					timer.Simple(1800,TimerFunc)
+				end
+				timer.Simple(1800,TimerFunc)
+			end
+		end)
 
 		local IgnoreSinglePlayer = true
 		if game.SinglePlayer() then
